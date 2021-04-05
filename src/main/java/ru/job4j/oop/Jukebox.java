@@ -1,6 +1,7 @@
 package ru.job4j.oop;
-
+/* 1.3. Вызов метода с аргументами. [#393904] */
 public class Jukebox {
+
     public void music(int position) {
         if (position == 1)
             System.out.println("Пусть бегут неуклюже");
