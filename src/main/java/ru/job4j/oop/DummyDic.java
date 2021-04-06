@@ -1,5 +1,6 @@
 package ru.job4j.oop;
 /* 1.4. Вызов метода с возвращаемым типом. [#393906] */
+
 public class DummyDic {
     public String engToRus(String eng) {
         return "Неизвестное слово " + eng;
