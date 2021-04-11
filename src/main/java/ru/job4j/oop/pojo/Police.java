@@ -9,7 +9,17 @@ public class Police {
         license.setModel("Honda");
         license.setCode("xx11xx");
         license.setCreated(new Date());
+
         System.out.println(license.getOwner() + " has a car - "
                 + license.getModel() + " : " + license.getCode());
+
+        License licenseTwo = new License();
+        licenseTwo.setOwner("Pavel Ivanov");
+        licenseTwo.setModel("Honda");
+        licenseTwo.setCode("xx11xx");
+        licenseTwo.setCreated(new Date());
+
+        boolean eq = license.equals(licenseTwo);
+        System.out.println(eq);
     }
 }
