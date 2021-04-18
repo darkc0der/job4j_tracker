@@ -18,6 +18,7 @@ public class UsagePackageDate {
         System.out.println("Текущие дата и время до форматирования: " + currentDateTime);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String currentDateTimeFormatter = currentDateTime.format(formatter);
-        System.out.println("Текущие дата и время после форматирования: " + currentDateTimeFormatter);
+        System.out.println("Текущие дата и время после форматирования: "
+                + currentDateTimeFormatter);
     }
 }
