@@ -13,6 +13,7 @@ public class StartUI {
         int id = input.askInt("Enter id: ");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
+        item.setId(id);
         System.out.println(tracker.replace(id, item) ? "Item is replace" : "Item isn't replace");
     }
     public static void deleteItem(Input input, Tracker tracker) {
