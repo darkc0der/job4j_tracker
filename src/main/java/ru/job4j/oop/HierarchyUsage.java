@@ -8,10 +8,10 @@ public class HierarchyUsage {
         Object ob = car;
 
         Object ocar = new Car();
-        Car carFromObject = (Car)ocar;
+        Car carFromObject = (Car) ocar;
 
         //Object bicycle = new Bicycle();
-        //Car cb = (Car)bicycle;
+        //  cb = (Car)bicycle;
 
         System.out.println(new Car());
         System.out.println(new Bicycle());
