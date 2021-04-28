@@ -3,9 +3,8 @@ package ru.job4j.tracker;
 import ru.job4j.tracker.actions.*;
 
 public class StartUI {
-    private static boolean run = true;
-
     public void init(Input input, Tracker tracker, UserAction[] actions) {
+        boolean run = true;
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select: ");
