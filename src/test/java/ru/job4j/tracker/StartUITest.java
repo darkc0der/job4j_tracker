@@ -102,7 +102,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenExit() {
+    public void whenExecuteExit() {
         Output output = new StubOutput();
         Input input = new StubInput(new String[] {"0"}, output);
         Tracker tracker = new Tracker();
@@ -113,8 +113,233 @@ public class StartUITest {
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
-                + "=== Exit Program ===" + System.lineSeparator()
-        ));
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteCreate() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New Item", "1"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteDelete() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New item", "1", "1", "2"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new DeleteItem(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Delete item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Delete item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Delete item ===" + System.lineSeparator()
+                + "Enter id: " + System.lineSeparator()
+                + "Item deleted" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Delete item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteFindItemById() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New item", "1", "1", "2"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new FindItemById(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find item by Id" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find item by Id" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Find item by Id ===" + System.lineSeparator()
+                + "Enter id: " + System.lineSeparator()
+                + "Item{id=1, name='New item', created=29-04-2021}" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find item by Id" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteFindItemByName() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New Item", "1", "New Item", "2"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new FindItemsByName(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find items by name" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find items by name" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Find items by name ===" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Item{id=1, name='New Item', created=29-04-2021}" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Find items by name" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteReplace() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New Item", "1", "1", "New Item 2", "2"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new ReplaceItem(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Edit item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Edit item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Edit item ===" + System.lineSeparator()
+                + "Enter id: " + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Item is replace" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Edit item" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenExecuteShowItemAll() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "New Item 1", "0", "New Item 2", "1", "2"},
+                output
+        );
+        UserAction[] actions = {
+                new CreateItem(output),
+                new ShowItemsAll(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Create a new Item ====" + System.lineSeparator()
+                + "Enter name: " + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Show all items ===" + System.lineSeparator()
+                + "Item{id=1, name='New Item 1', created=29-04-2021}" + System.lineSeparator()
+                + "Item{id=2, name='New Item 2', created=29-04-2021}" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Add new Item" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
     }
 }
 

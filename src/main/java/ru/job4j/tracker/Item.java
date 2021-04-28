@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Item {
     private int id;
     private String name;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private LocalDateTime created = LocalDateTime.now();
     private String dateCreate = created.format(formatter);
 
