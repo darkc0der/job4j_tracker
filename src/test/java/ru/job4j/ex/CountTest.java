@@ -1,6 +1,7 @@
 package ru.job4j.ex;
 
 import org.junit.Test;
+import ru.job4j.ex.count.Count;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;

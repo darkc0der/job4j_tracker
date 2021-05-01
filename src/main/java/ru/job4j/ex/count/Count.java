@@ -1,4 +1,4 @@
-package ru.job4j.ex;
+package ru.job4j.ex.count;
 
 public class Count {
     public static int add(int start, int finish) {

@@ -1,4 +1,4 @@
-package ru.job4j.ex;
+package ru.job4j.ex.fact;
 
 public class Fact {
     public static void main(String[] args) {

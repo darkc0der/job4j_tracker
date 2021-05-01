@@ -1,8 +1,7 @@
 package ru.job4j.ex;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import ru.job4j.ex.fact.Fact;
 
 public class FactTest {
 
