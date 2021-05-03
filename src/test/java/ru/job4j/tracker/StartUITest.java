@@ -2,8 +2,6 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import ru.job4j.tracker.actions.*;
-
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -15,7 +13,8 @@ public class StartUITest {
         Output output = new StubOutput();
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[] {"Pavel"}, output);
-        new CreateItem(output).execute(input, tracker);
+        Input validateInput = new ValidateInput(input, output);
+        new CreateItem(output).execute(validateInput, tracker);
         Item created = tracker.findAll()[0];
         Item expected = new Item("Pavel");
         assertThat(created.getName(), is(expected.getName()));
@@ -31,7 +30,8 @@ public class StartUITest {
                 String.valueOf(item.getId()),
                 "replaced item"
         };
-        new ReplaceItem(output).execute(new StubInput(answers, output), tracker);
+        Input validateInput = new ValidateInput(new StubInput(answers, output), output);
+        new ReplaceItem(output).execute(validateInput, tracker);
         Item replaced = tracker.findById(item.getId());
         assertThat(replaced.getName(), is("replaced item"));
     }
@@ -46,7 +46,8 @@ public class StartUITest {
                 String.valueOf(item.getId())
         };
         UserAction action = new DeleteItem(output);
-        action.execute(new StubInput(answers, output), tracker);
+        Input validateInput = new ValidateInput(new StubInput(answers, output), output);
+        action.execute(validateInput, tracker);
         Item deleted = tracker.findById(item.getId());
         assertThat(deleted, is(nullValue()));
         //assertNull(deleted);
@@ -64,7 +65,8 @@ public class StartUITest {
                 new CreateItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        Input validateInput = new ValidateInput(input, output);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(tracker.findAll()[0].getName(), is("Item name"));
     }
 
@@ -81,7 +83,8 @@ public class StartUITest {
                 new ReplaceItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        Input validateInput = new ValidateInput(input, output);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName(), is("Item 2"));
     }
 
@@ -95,11 +98,12 @@ public class StartUITest {
                 new String[] {"0", "1", "1"},
                 output
         );
+        Input validateInput = new ValidateInput(input, output);
         UserAction[] actions = {
                 new DeleteItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(tracker.findById(item.getId()), is(nullValue()));
     }
 
@@ -111,7 +115,8 @@ public class StartUITest {
         UserAction[] action = {
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, action);
+        Input validateInput = new ValidateInput(input, output);
+        new StartUI(output).init(validateInput, tracker, action);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
@@ -127,11 +132,12 @@ public class StartUITest {
                 new String[] {"0", "New Item", "1"},
                 output
         );
+        Input validateInput = new ValidateInput(input, output);
         UserAction[] actions = {
                 new CreateItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Exit Program" + System.lineSeparator()
@@ -159,7 +165,8 @@ public class StartUITest {
                 new DeleteItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        Input validateInput = new ValidateInput(input, output);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Delete item" + System.lineSeparator()
@@ -192,12 +199,13 @@ public class StartUITest {
                 new String[] {"0", "New item", "1", "1", "2"},
                 output
         );
+        Input validateInput = new ValidateInput(input, output);
         UserAction[] actions = {
                 new CreateItem(output),
                 new FindItemById(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find item by Id" + System.lineSeparator()
@@ -212,7 +220,7 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find item by Id ===" + System.lineSeparator()
                 + "Enter id: " + System.lineSeparator()
-                + "Item{id=1, name='New item', created=29-04-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New item', created=03-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find item by Id" + System.lineSeparator()
@@ -230,12 +238,15 @@ public class StartUITest {
                 new String[] {"0", "New Item", "1", "New Item", "2"},
                 output
         );
+
+        Input validateInput = new ValidateInput(input, output);
+
         UserAction[] actions = {
                 new CreateItem(output),
                 new FindItemsByName(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find items by name" + System.lineSeparator()
@@ -250,7 +261,7 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find items by name ===" + System.lineSeparator()
                 + "Enter name: " + System.lineSeparator()
-                + "Item{id=1, name='New Item', created=29-04-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New Item', created=03-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find items by name" + System.lineSeparator()
@@ -268,12 +279,13 @@ public class StartUITest {
                 new String[] {"0", "New Item", "1", "1", "New Item 2", "2"},
                 output
         );
+        Input validateInput = new ValidateInput(input, output);
         UserAction[] actions = {
                 new CreateItem(output),
                 new ReplaceItem(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Edit item" + System.lineSeparator()
@@ -307,12 +319,13 @@ public class StartUITest {
                 new String[] {"0", "New Item 1", "0", "New Item 2", "1", "2"},
                 output
         );
+        Input validateInput = new ValidateInput(input, output);
         UserAction[] actions = {
                 new CreateItem(output),
                 new ShowItemsAll(output),
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
@@ -333,8 +346,8 @@ public class StartUITest {
                 + "2. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Show all items ===" + System.lineSeparator()
-                + "Item{id=1, name='New Item 1', created=29-04-2021}" + System.lineSeparator()
-                + "Item{id=2, name='New Item 2', created=29-04-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New Item 1', created=03-05-2021}" + System.lineSeparator()
+                + "Item{id=2, name='New Item 2', created=03-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
@@ -352,44 +365,14 @@ public class StartUITest {
         UserAction[] actions = {
                 new ExitProgram(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        Input validateInput = new ValidateInput(input, output);
+        new StartUI(output).init(validateInput, tracker, actions);
         assertThat(output.toString(), is("Menu." + System.lineSeparator()
                 + "0. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "Wrong input, you can select: 0 .. 0" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Exit Program" + System.lineSeparator()
-                + "Select: " + System.lineSeparator()
-                + "=== Exit Program ===" + System.lineSeparator()
-        ));
-    }
-
-    @Test
-    public void whenNumberFormatException() {
-        Output output = new StubOutput();
-        Input input = new ValidateStubInput(
-                new String[] {"0", "efefe", "1", "1"},
-                output
-        );
-        Tracker tracker = new Tracker();
-        tracker.add(new Item("Pavel"));
-        UserAction[] actions = {
-                new DeleteItem(output),
-                new ExitProgram(output)
-        };
-        new StartUI(output).init(input, tracker, actions);
-        assertThat(output.toString(), is("Menu." + System.lineSeparator()
-                + "0. Delete item" + System.lineSeparator()
-                + "1. Exit Program" + System.lineSeparator()
-                + "Select: " + System.lineSeparator()
-                + "=== Delete item ===" + System.lineSeparator()
-                + "Enter id: " + System.lineSeparator()
-                + "Please enter validate data again." + System.lineSeparator()
-                + "Enter id: " + System.lineSeparator()
-                + "Item deleted" + System.lineSeparator()
-                + "Menu." + System.lineSeparator()
-                + "0. Delete item" + System.lineSeparator()
-                + "1. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Exit Program ===" + System.lineSeparator()
         ));
