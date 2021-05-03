@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import ru.job4j.tracker.actions.*;
+
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -340,6 +342,57 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Exit Program ===" + System.lineSeparator())
         );
+    }
+
+    @Test
+    public void whenInvalidExit() {
+        Output output = new StubOutput();
+        Input input = new StubInput(new String[] {"-1", "0"}, output);
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "Wrong input, you can select: 0 .. 0" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator()
+        ));
+    }
+
+    @Test
+    public void whenNumberFormatException() {
+        Output output = new StubOutput();
+        Input input = new ValidateStubInput(
+                new String[] {"0", "efefe", "1", "1"},
+                output
+        );
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("Pavel"));
+        UserAction[] actions = {
+                new DeleteItem(output),
+                new ExitProgram(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Delete item" + System.lineSeparator()
+                + "1. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Delete item ===" + System.lineSeparator()
+                + "Enter id: " + System.lineSeparator()
+                + "Please enter validate data again." + System.lineSeparator()
+                + "Enter id: " + System.lineSeparator()
+                + "Item deleted" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Delete item" + System.lineSeparator()
+                + "1. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator()
+        ));
     }
 }
 
