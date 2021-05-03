@@ -1,5 +1,6 @@
 package ru.job4j.ex.findel;
 
+import ru.job4j.ex.ElementAbuseException;
 import ru.job4j.ex.findel.ElementNotFoundException;
 
 public class FindEl {
@@ -18,15 +19,30 @@ public class FindEl {
         return rsl;
     }
 
-    public static void main(String[] args) {
-        int index;
-        try {
-            index = indexOf(new String[]{"Ivan", "Pavel", "Nadya"}, "Nadya");
-            if (index == 2) {
-                System.out.println("Index of found element is : " + index);
+    public static boolean sent(String value, String[] abuses) throws ElementAbuseException {
+        for (int i = 0; i < abuses.length; i++) {
+            if (abuses[i].equals(value)) {
+                throw new ElementAbuseException("Element Abuses exception");
             }
-        } catch (ElementNotFoundException e) {
-            e.printStackTrace();
         }
+        return true;
+    }
+
+    public static void process(String[] value, String key, String[] abuses) {
+        try {
+            if (indexOf(value, key) != -1) {
+                System.out.println(sent(key, abuses));
+            }
+        } catch (ElementAbuseException eae) {
+            eae.printStackTrace();
+        } catch (ElementNotFoundException enfe) {
+            enfe.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        String[] abuses = {"this", "try", "catch", "Pavel"};
+        String[] value = {"Fedya", "Ivan", "Nadya"};
+        process(value, "Fedya", abuses);
     }
 }
