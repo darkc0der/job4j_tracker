@@ -43,6 +43,8 @@ public class StartUI {
                 new DeleteItem(output),
                 new FindItemById(output),
                 new FindItemsByName(output),
+                new Sort(output),
+                new SortReverse(output),
                 new ExitProgram(output)
         );
         new StartUI(output).init(input, tracker, actions);

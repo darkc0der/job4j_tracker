@@ -222,7 +222,7 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find item by Id ===" + System.lineSeparator()
                 + "Enter id: " + System.lineSeparator()
-                + "Item{id=1, name='New item', created=15-05-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New item', created=18-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find item by Id" + System.lineSeparator()
@@ -263,7 +263,7 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find items by name ===" + System.lineSeparator()
                 + "Enter name: " + System.lineSeparator()
-                + "Item{id=1, name='New Item', created=15-05-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New Item', created=18-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find items by name" + System.lineSeparator()
@@ -348,8 +348,8 @@ public class StartUITest {
                 + "2. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Show all items ===" + System.lineSeparator()
-                + "Item{id=1, name='New Item 1', created=15-05-2021}" + System.lineSeparator()
-                + "Item{id=2, name='New Item 2', created=15-05-2021}" + System.lineSeparator()
+                + "Item{id=1, name='New Item 1', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=2, name='New Item 2', created=18-05-2021}" + System.lineSeparator()
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
@@ -376,6 +376,96 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Exit Program ===" + System.lineSeparator()
         ));
+    }
+
+    @Test
+    public void whenSorted() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "1", "2"},
+                output
+        );
+        tracker.add(new Item("Zina"));
+        tracker.add(new Item("Boris"));
+        tracker.add(new Item("Aleksey"));
+        tracker.add(new Item("Gena"));
+
+        Input validateInput = new ValidateInput(input, output);
+        List<UserAction> actions = Arrays.asList(
+                new Sort(output),
+                new ShowItemsAll(output),
+                new ExitProgram(output)
+        );
+        new StartUI(output).init(validateInput, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Sorted by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Sort In Ascending ===" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Sorted by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Show all items ===" + System.lineSeparator()
+                + "Item{id=3, name='Aleksey', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=2, name='Boris', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=4, name='Gena', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=1, name='Zina', created=18-05-2021}" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Sorted by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
+    }
+
+    @Test
+    public void whenSortedReverse() {
+        Tracker tracker = new Tracker();
+        Output output = new StubOutput();
+        Input input = new StubInput(
+                new String[] {"0", "1", "2"},
+                output
+        );
+        tracker.add(new Item("Aleksey"));
+        tracker.add(new Item("Boris"));
+        tracker.add(new Item("Gena"));
+        tracker.add(new Item("Zina"));
+
+        Input validateInput = new ValidateInput(input, output);
+        List<UserAction> actions = Arrays.asList(
+                new SortReverse(output),
+                new ShowItemsAll(output),
+                new ExitProgram(output)
+        );
+        new StartUI(output).init(validateInput, tracker, actions);
+        assertThat(output.toString(), is("Menu." + System.lineSeparator()
+                + "0. Sorted Reverse by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Sort In Descending ===" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Sorted Reverse by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Show all items ===" + System.lineSeparator()
+                + "Item{id=4, name='Zina', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=3, name='Gena', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=2, name='Boris', created=18-05-2021}" + System.lineSeparator()
+                + "Item{id=1, name='Aleksey', created=18-05-2021}" + System.lineSeparator()
+                + "Menu." + System.lineSeparator()
+                + "0. Sorted Reverse by Name" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Exit Program" + System.lineSeparator()
+                + "Select: " + System.lineSeparator()
+                + "=== Exit Program ===" + System.lineSeparator())
+        );
     }
 }
 
