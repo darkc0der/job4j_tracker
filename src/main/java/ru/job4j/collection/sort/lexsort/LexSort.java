@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.regex.Pattern;
 
 public class LexSort implements Comparator<String> {
+
     @Override
     public int compare(String first, String second) { // "1. test
         String[] left = first.split(Pattern.quote(".")); // можно так
