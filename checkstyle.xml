@@ -4,15 +4,12 @@
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-
     <property name="charset" value="UTF-8"/>
-
     <property name="fileExtensions" value="java, properties, xml"/>
 
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="FileLength"/>
-
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
         <property name="max" value="100"/>
@@ -25,9 +22,7 @@
     <!-- </module> -->
 
     <module name="TreeWalker">
-
         <module name="DeclarationOrder"/>
-
         <module name="EmptyLineSeparator">
             <property name="tokens" value="
             CLASS_DEF, ENUM_DEF, INTERFACE_DEF, CTOR_DEF, STATIC_INIT, INSTANCE_INIT, VARIABLE_DEF, METHOD_DEF"/>
@@ -107,7 +102,5 @@
         <!--<module name="FinalParameters"/>-->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
-
     </module>
-
 </module>

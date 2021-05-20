@@ -2,7 +2,10 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import ru.job4j.tracker.actions.*;
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -222,7 +225,11 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find item by Id ===" + System.lineSeparator()
                 + "Enter id: " + System.lineSeparator()
-                + "Item{id=1, name='New item', created=18-05-2021}" + System.lineSeparator()
+
+                + "Item{id=1, name='New item', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find item by Id" + System.lineSeparator()
@@ -263,7 +270,11 @@ public class StartUITest {
                 + "Select: " + System.lineSeparator()
                 + "=== Find items by name ===" + System.lineSeparator()
                 + "Enter name: " + System.lineSeparator()
-                + "Item{id=1, name='New Item', created=18-05-2021}" + System.lineSeparator()
+
+                + "Item{id=1, name='New Item', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Find items by name" + System.lineSeparator()
@@ -348,8 +359,15 @@ public class StartUITest {
                 + "2. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Show all items ===" + System.lineSeparator()
-                + "Item{id=1, name='New Item 1', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=2, name='New Item 2', created=18-05-2021}" + System.lineSeparator()
+
+                + "Item{id=1, name='New Item 1', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=2, name='New Item 2', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
                 + "Menu." + System.lineSeparator()
                 + "0. Add new Item" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
@@ -410,10 +428,23 @@ public class StartUITest {
                 + "2. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Show all items ===" + System.lineSeparator()
-                + "Item{id=3, name='Aleksey', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=2, name='Boris', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=4, name='Gena', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=1, name='Zina', created=18-05-2021}" + System.lineSeparator()
+
+                + "Item{id=3, name='Aleksey', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=2, name='Boris', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=4, name='Gena', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=1, name='Zina', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
                 + "Menu." + System.lineSeparator()
                 + "0. Sorted by Name" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
@@ -455,10 +486,23 @@ public class StartUITest {
                 + "2. Exit Program" + System.lineSeparator()
                 + "Select: " + System.lineSeparator()
                 + "=== Show all items ===" + System.lineSeparator()
-                + "Item{id=4, name='Zina', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=3, name='Gena', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=2, name='Boris', created=18-05-2021}" + System.lineSeparator()
-                + "Item{id=1, name='Aleksey', created=18-05-2021}" + System.lineSeparator()
+
+                + "Item{id=4, name='Zina', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=3, name='Gena', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=2, name='Boris', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
+                + "Item{id=1, name='Aleksey', created="
+                + new SimpleDateFormat("dd-MM").format(new Date())
+                + "-2021}" + System.lineSeparator()
+
                 + "Menu." + System.lineSeparator()
                 + "0. Sorted Reverse by Name" + System.lineSeparator()
                 + "1. Show all items" + System.lineSeparator()
