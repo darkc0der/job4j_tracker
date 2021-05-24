@@ -1,7 +1,7 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
 language: java
 jdk:
-  - openjdk15
+  - openjdk14
 
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
@@ -11,11 +11,11 @@ sudo: false
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-# Отправлять уведомление на почту youremail@smtp.ru (Изменить на свою) если сборка упала
+# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:
   email:
     recipients:
-      -borisroud1@mail.ru
+      - borisroud1@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
 
